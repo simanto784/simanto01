@@ -1,0 +1,29 @@
+name: C Multiplication CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1️⃣ Code checkout
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2️⃣ Build
+    - name: Build program
+      run: make
+
+    # 3️⃣ Test (CI)
+    - name: Run test
+      run: ./test
+
+    # 4️⃣ Deploy (CD)
+    - name: Deploy build
+      run: |
+        mkdir deploy
+        cp app deploy/
+        echo "Deployment successful"
